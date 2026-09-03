@@ -410,3 +410,92 @@ kustomize build | kubectl apply -f -
 ## License
 
 [License](LICENSE.md)
+
+
+
+
+## MY CICD Implementation
+
+## CI/CD Implementation
+
+This project implements a complete CI/CD pipeline for a Movie Picture application using GitHub Actions, Docker, Amazon ECR, Amazon EKS, Kubernetes, Kustomize, and Terraform.
+
+### Applications
+
+- Frontend: TypeScript + React
+- Backend: Python + Flask
+
+### Continuous Integration
+
+Separate GitHub Actions workflows were created for the frontend and backend.
+
+#### Frontend CI
+- Runs automatically for pull requests targeting the `main` branch when frontend code changes.
+- Supports manual execution using `workflow_dispatch`.
+- Runs ESLint.
+- Runs frontend tests.
+- Builds the frontend Docker application after lint and tests pass.
+
+#### Backend CI
+- Runs automatically for pull requests targeting the `main` branch when backend code changes.
+- Supports manual execution using `workflow_dispatch`.
+- Runs Flake8 linting.
+- Runs backend tests.
+- Builds the backend Docker application after lint and tests pass.
+
+### Continuous Deployment
+
+Separate CD workflows were created for the frontend and backend.
+
+#### Frontend CD
+- Runs automatically when frontend changes are pushed to `main`.
+- Runs lint and tests before deployment.
+- Builds a Docker image using the frontend backend API URL.
+- Tags the image using the Git commit SHA.
+- Pushes the image to Amazon ECR.
+- Deploys the image to Amazon EKS using Kubernetes and Kustomize.
+
+#### Backend CD
+- Runs automatically when backend changes are pushed to `main`.
+- Runs lint and tests before deployment.
+- Builds a Docker image.
+- Tags the image using the Git commit SHA.
+- Pushes the image to Amazon ECR.
+- Deploys the image to Amazon EKS using Kubernetes and Kustomize.
+
+### AWS Infrastructure
+
+Terraform was used to provision the deployment environment, including:
+
+- Amazon ECR repositories for frontend and backend images
+- Amazon EKS Kubernetes cluster
+- EKS worker node group
+- IAM configuration required for GitHub Actions deployment
+
+The Kubernetes cluster uses Kubernetes version 1.33.
+
+### Deployment Verification
+
+The deployed applications are exposed through Kubernetes `LoadBalancer` services.
+
+The frontend successfully displays the movie catalog retrieved from the backend API.
+
+Example movies displayed by the deployed application:
+
+- Top Gun: Maverick
+- Sonic the Hedgehog
+- A Quiet Place
+
+### Evidence
+
+The `evidence` folder contains screenshots demonstrating:
+
+- Frontend CI success
+- Backend CI success
+- Frontend CD success
+- Backend CD success
+- Docker images in Amazon ECR
+- Amazon EKS cluster and worker node
+- Kubernetes services and deployments
+- Backend `/movies` API response
+- Deployed frontend movie list
