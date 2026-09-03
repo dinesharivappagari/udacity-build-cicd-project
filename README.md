@@ -416,6 +416,10 @@ kustomize build | kubectl apply -f -
 
 ## MY CICD Implementation
 
+
+frontend URL: http://a476213a8968f4b7eb0da7488156d3d8-665870796.us-east-1.elb.amazonaws.com
+Backend API URL: http://aad61a10201864fa685cd7aa893646ac-263341290.us-east-1.elb.amazonaws.com/movies
+
 ## CI/CD Implementation
 
 This project implements a complete CI/CD pipeline for a Movie Picture application using GitHub Actions, Docker, Amazon ECR, Amazon EKS, Kubernetes, Kustomize, and Terraform.
